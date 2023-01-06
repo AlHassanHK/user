@@ -17,7 +17,6 @@ const createUser = async (req, res) => {
   try {
     const {name , email, token} = req.body;
 
-
     // first if a user with this email exists then we return status 200
     const user = await users.findMany({
         where: {
@@ -77,7 +76,11 @@ const getTicketById = async (req, res) => {
                     include: {
                         Reservation: {
                             include: {
-                                Ticket: true
+                                Ticket: {
+                                    include: {
+                                        Match: true
+                                    }
+                                }
                             }
                         }
                     }
